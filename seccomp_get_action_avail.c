@@ -34,7 +34,6 @@ int seccomp(unsigned int op, unsigned int flags, void *args){
 #define SECCOMP_RET_ALLOW        0x7fff0000U /* allow */
 
 int main () {
-
   char* actnames[] = {
       SECCOMP_RET_KILL_PROCESS_NAME,
       SECCOMP_RET_KILL_THREAD_NAME,
@@ -60,11 +59,12 @@ int main () {
   int i;
   long ret;
   size_t n = sizeof(actions)/sizeof(actions[0]);
-
   struct utsname uname_buff;
 
   if (uname(&uname_buff) == 0) {
-    printf("OS version : %s\n", uname_buff.version);
+    printf("release : %s\n", uname_buff.release);
+    printf("version : %s\n", uname_buff.version);
+    printf("machine : %s\n", uname_buff.machine);
   } else {
     perror("main");
   }
