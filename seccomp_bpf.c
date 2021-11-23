@@ -35,15 +35,19 @@ void configure_seccomp() {
 int main() {
   int fd;
   pid_t pid;
-  const char *val = "hello, again.\n";
+  char val[7];
 
   configure_seccomp();
 
-  printf("Opening a file for reading...\n");
-  fd = open("foo.txt", O_RDONLY);
+  printf("Opening a file for writing...\n");
+  fd = open("foo.txt", O_WRONLY);
   
   printf("Getting PID...\n"); 
   pid = getpid();
+  sprintf(val, "%d", pid);
 
-  printf("Done.");
+  printf("Trying to write to an opened file...\n");
+  write(fd, val, strlen(val)+1);
+
+  printf("Done.\n");
 }
